@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Button from './components/Button';
 
 function App() {
 
@@ -35,19 +36,45 @@ function App() {
   const [result, setResult] = useState(0);
   const [target, setTarget] = useState(0);
   const changeTarget = (e) => setTarget(Number(e.target.value))
-  const add = () => setResult((prev) => prev + target)
-  const diff = () => setResult((prev) => prev - target)
-  const mul = () => setResult((prev) => prev * target)
-  const div = () => setResult((prev) => prev / target)
+
+  const add = () => {
+    setResult((prev) => {
+      addLog(`${prev} + ${target} = ${prev + target}`)
+      return prev + target
+    })
+  }
+  const diff = () => setResult((prev) => {
+    addLog(`${prev} - ${target} = ${prev - target}`)
+    return prev - target
+  })
+  const mul = () => setResult((prev) => {
+    addLog(`${prev} * ${target} = ${prev * target}`)
+    return prev * target
+  })
+  const div = () => setResult((prev) => {
+    addLog(`${prev} / ${target} = ${prev / target}`)
+    return prev / target
+  })
+
+  const addLog = (log) => {
+    setLogs(prev => [...prev, log])
+  }
+  const [logs, setLogs] = useState([]);
+  const buttons = [
+    { action: add, name: "+" },
+    { action: diff, name: "-" },
+    { action: mul, name: "*" },
+    { action: div, name: "/" },
+  ]
   return (
     <div className="App">
       <header className="App-header">
+
         <input type='number' onChange={changeTarget}></input>
-        <button onClick={add}>+</button>
-        <button onClick={diff}>-</button>
-        <button onClick={mul}>*</button>
-        <button onClick={div}>/</button>
+        {buttons.map(el => <Button el={el} />)}
+        <button onClick={() => addLog('2 + 2 = 4')}>test</button>
         <h1>{result}</h1>
+        {logs.map(el => <p>{el}</p>)}
         {/* <img src={logo} className="App-logo" alt="logo" />
         <p>
           {name1}
