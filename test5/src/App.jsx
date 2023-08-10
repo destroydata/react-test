@@ -66,15 +66,22 @@ function App() {
     { action: mul, name: "*" },
     { action: div, name: "/" },
   ]
+  const [oper, setOper] = useState("");
   return (
     <div className="App">
       <header className="App-header">
-
         <input type='number' onChange={changeTarget}></input>
+        <select onChange={(e) => setOper(e.target.value)}>
+          <option value={""}>선택해주세요</option>
+          {buttons.map(
+            ({ name }) =>
+              <option value={name}>{name}</option>)}
+        </select>
         {buttons.map(el => <Button el={el} />)}
-        <button onClick={() => addLog('2 + 2 = 4')}>test</button>
         <h1>{result}</h1>
-        {logs.map(el => <p>{el}</p>)}
+        {logs
+          .filter(el => el.includes(`${oper} `))
+          .map(el => <p>{el}</p>)}
         {/* <img src={logo} className="App-logo" alt="logo" />
         <p>
           {name1}
