@@ -7,6 +7,11 @@ const ListSignup = () => {
         (prev) => [...prev, { id: prev.length, isSuccess: false }]
     )
     const signupSuccess = (id) => {
+        const u = users.map(el => el.id === id
+            ? { ...el, isSuccess: true } : el)
+        setUsers(u)
+    }
+    const removeUser = () => {
 
     }
     return <>
@@ -17,6 +22,7 @@ const ListSignup = () => {
                 cid={el.id}
                 signupSuccess={signupSuccess} />)}
         <button onClick={addUser}>▼</button>
+        <button onClick={removeUser}>▲</button>
     </>
 }
 
