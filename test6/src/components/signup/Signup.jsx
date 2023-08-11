@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PasswordDiv from "./PasswordDiv";
 
-const Signup = ({ signupSuccess, cid }) => {
+const Signup = ({ signupSuccess, cid, removeUser }) => {
     const users = [{ id: '1q2w3e' }, { id: '1234' }, { id: 'park' }]
     const [id, setId] = useState({ id: "", exist: false, isFirst: true });
     const onChangeId = e => setId((prev) =>
@@ -29,6 +29,7 @@ const Signup = ({ signupSuccess, cid }) => {
         border: '1px solid red',
         padding: 10
     }}>
+        <h1>{cid}</h1>
         <input
             name="id"
             placeholder="id"
@@ -45,7 +46,7 @@ const Signup = ({ signupSuccess, cid }) => {
             />
         }
         <button onClick={() => signupSuccess(cid)}>회원가입 </button>
-
+        <button onClick={() => removeUser(cid)}>취소 </button>
     </div>
 }
 export default Signup;
