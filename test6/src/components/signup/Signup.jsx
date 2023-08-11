@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PasswordDiv from "./PasswordDiv";
 
-const Signup = () => {
+const Signup = ({ signupSuccess, cid }) => {
     const users = [{ id: '1q2w3e' }, { id: '1234' }, { id: 'park' }]
     const [id, setId] = useState({ id: "", exist: false, isFirst: true });
     const onChangeId = e => setId((prev) =>
@@ -21,15 +21,13 @@ const Signup = () => {
             ...prev
             , isEqual: prev.password === prev.repassword
         }))
-
-
-
-
     return <div style={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        border: '1px solid red',
+        padding: 10
     }}>
         <input
             name="id"
@@ -46,6 +44,8 @@ const Signup = () => {
                 passwordCheck={passwordCheck}
             />
         }
+        <button onClick={() => signupSuccess(cid)}>회원가입 </button>
+
     </div>
 }
 export default Signup;

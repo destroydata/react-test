@@ -1,5 +1,5 @@
 const PasswordDiv = ({ isFirst, onChangePassword, passwordCheck, isEqual }) => {
-    return isFirst &&
+    return !isFirst &&
         <>
             <input name="password"
                 type="password"
