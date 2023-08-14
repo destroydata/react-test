@@ -3,13 +3,16 @@ import Signup from "./Signup";
 
 // 1. 조건 만족시 회원가입
 // 2. 전체 회원가입
+// 3. 조건 만족 한 사람만 전체 회원가입
 const ListSignup = () => {
-    const [users, setUsers] = useState([{ id: 0, isSuccess: false }])
+    const [users, setUsers] = useState([{
+        id: 0, isSuccess: false, isValid: false
+    }])
     const addUser = () => {
         setUsers(
             (prev) => [...prev, {
                 id: prev[prev.length - 1].id + 1
-                , isSuccess: false
+                , isSuccess: false, isValid: false
             }]
         )
     }
@@ -22,6 +25,17 @@ const ListSignup = () => {
         setUsers(
             (prev) => prev.filter((el, index) => el.id !== i))
     }
+    const validSuccess = (i) => {
+        const u = users.map((el) => el.id === i
+            ? { ...el, isValid: true } : el)
+        setUsers(u)
+    }
+    const allSuccess = () => {
+        const u = users.map((el) => el.isValid
+            ? { ...el, isSuccess: true } : el)
+        setUsers(u)
+    }
+
     return <>
         {users
             .filter(el => !el.isSuccess)
@@ -30,10 +44,11 @@ const ListSignup = () => {
                 cid={el.id}
                 signupSuccess={signupSuccess}
                 removeUser={removeUser}
+                validSuccess={validSuccess}
             />)}
         <button onClick={addUser}>▼</button>
         <button onClick={() => removeUser()}>▲</button>
-        <button>전체 회원가입</button>
+        <button onClick={allSuccess}>전체 회원가입</button>
     </>
 }
 

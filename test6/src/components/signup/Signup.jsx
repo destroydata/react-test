@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PasswordDiv from "./PasswordDiv";
 
-const Signup = ({ signupSuccess, cid, removeUser }) => {
+const Signup = ({ signupSuccess, cid, removeUser, validSuccess }) => {
     const users = [{ id: '1q2w3e' }, { id: '1234' }, { id: 'park' }]
     const [id, setId] = useState({ id: "", exist: false, isFirst: true });
     const onChangeId = e => setId((prev) =>
@@ -16,11 +16,20 @@ const Signup = ({ signupSuccess, cid, removeUser }) => {
         const { name, value } = e.target
         setPassword((prev) => ({ ...prev, [name]: value }))
     }
-    const passwordCheck = () =>
-        setPassword((prev) => ({
-            ...prev
-            , isEqual: prev.password === prev.repassword
-        }))
+    const passwordCheck = () => {
+        setPassword((prev) => {
+            if (prev.password === prev.repassword && !id.exist) validSuccess(cid)
+            return {
+                ...prev
+                , isEqual: prev.password === prev.repassword
+            }
+        })
+    }
+    const checkSuccess = () => {
+        if (password.isEqual && !id.exist)
+            signupSuccess(cid)
+    }
+
     return <div style={{
         display: 'flex',
         flexDirection: 'column',
@@ -45,7 +54,7 @@ const Signup = ({ signupSuccess, cid, removeUser }) => {
                 passwordCheck={passwordCheck}
             />
         }
-        <button onClick={() => signupSuccess(cid)}>회원가입 </button>
+        <button onClick={checkSuccess}>회원가입 </button>
         <button onClick={() => removeUser(cid)}>취소 </button>
     </div>
 }
