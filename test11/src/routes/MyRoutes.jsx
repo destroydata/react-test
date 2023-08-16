@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router'
 import Template from '../template/Template';
 import Login from '../components/Login';
+
 const MyRoutes = () => {
     return <Routes>
         <Route element={<Template />}>

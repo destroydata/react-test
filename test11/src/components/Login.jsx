@@ -11,7 +11,10 @@ const Login = () => {
         setStatus("loading")
         const response = await myAxios("/api/v1/member", "POST", { name })
         setStatus(response.status)
-        console.log(response)
+        if (response.status === "success") {
+            localStorage.setItem("id", response.body.name)
+            window.location.href = '/member'
+        }
     }
     return <>
         {status === "loading" && <Spinner />}
