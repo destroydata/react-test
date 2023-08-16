@@ -6,7 +6,8 @@ import { useEffect } from 'react'
 import { myAxios } from '../network/api'
 const Template = () => {
     const logout = () => {
-        localStorage.clear()
+        // localStorage.clear()
+        setMe()
     }
     const [me, setMe] = useState();
     const test = async () => {
