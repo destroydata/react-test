@@ -4,17 +4,13 @@ import { Link } from 'react-router-dom'
 const Template = () => {
     return <>
         <Navbar>
-            <NavbarBrand ><Link to="/">Home</Link></NavbarBrand>
+            <Link to="/" className='navbar-brand'>Home</Link>
             <Nav>
                 <NavItem>
-                    <NavLink >
-                        <Link to="/member">member</Link>
-                    </NavLink>
+                    <Link to="/member">member</Link>
                 </NavItem>
                 <NavItem>
-                    <NavLink >
-                        <Link to="/login">login</Link>
-                    </NavLink>
+                    <Link to="/login">login</Link>
                 </NavItem>
             </Nav>
         </Navbar>

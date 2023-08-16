@@ -1,27 +1,22 @@
 import { useState } from "react";
-import { Alert, Input } from "reactstrap"
+import { Alert, Input, Spinner } from "reactstrap"
+import { api, myAxios } from "../network/api";
 
 const Login = () => {
     const [name, setName] = useState("")
-    const [isErr, setIsErr] = useState(false)
-    const onSubmitHandler = (e) => {
+    const [status, setStatus] = useState("idle")
+    // idle || error || loading || success
+    const onSubmitHandler = async (e) => {
         e.preventDefault();
-        fetch("http://192.168.0.184:8080/api/v1/member", {
-            method: "POST"
-            , headers: { "Content-Type": "application/json" }
-            , body: JSON.stringify({ name })
-        }).then((res) => {
-            console.log(res);
-            return res.json()
-        }).then((member) => {
-            console.log(member)
-        }).catch((err) => {
-            console.log(err)
-            setIsErr(true)
-        })
+        setStatus("loading")
+        const response = await myAxios("/api/v1/member", "POST", { name })
+        setStatus(response.status)
+        console.log(response)
     }
     return <>
-        {isErr && <Alert color="danger">login fail</Alert>}
+        {status === "loading" && <Spinner />}
+        {status === "success" && <Alert>성공</Alert>}
+        {status === "error" && <Alert color="danger">실패</Alert>}
         <form onSubmit={onSubmitHandler}>
             <Input
                 placeholder="name"
