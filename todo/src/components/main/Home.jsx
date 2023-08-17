@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { api } from "../../network/api";
 import Loading from "../tools/Loading";
 import Toast from "../tools/Toast";
-import HomeTableData from "./HomeTableData";
 import HomePageButtons from "./HomePageButtons";
 import HomeSizeSelect from "./HomeSizeSelect";
 import HomeTable from "./HomeTable";
