@@ -1,17 +1,20 @@
 import HomeTableData from "./HomeTableData"
 
 const HomeTable = ({ all }) => {
+    const row = [
+        { name: "content", value: "content" },
+        { name: "name", value: "userName" },
+        { name: "check", value: "isCompleted", type: "checkbox" },
+    ]
     return <table>
         <thead>
             <tr>
-                <th>content</th>
-                <th>name</th>
-                <th>check</th>
+                {row.map(({ name }) => <th key={name}>{name}</th>)}
             </tr>
         </thead>
         <tbody>
             {all.map(data =>
-                <HomeTableData data={data} key={data.id} />
+                <HomeTableData data={data} key={data.id} row={row} />
             )}
         </tbody>
     </table>
