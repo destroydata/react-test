@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router';
 import logo from '../../logo.svg';
 import { useState } from 'react';
 import { apiNoToken } from '../../network/api';
-const Login = () => {
+const Login = ({ setMe }) => {
     const [user, setUser] = useState({
         email: "",
         password: ""
@@ -17,8 +17,10 @@ const Login = () => {
         e.preventDefault();
         setMessage("");
         try {
-            await apiNoToken('/api/v1/auth/login', 'POST', user)
-            alert('성공')
+            const data = await apiNoToken('/api/v1/auth/login', 'POST', user)
+            localStorage.setItem('token', data.token)
+            setMe(data)
+            nav("/")
         } catch (error) {
             setMessage(error.response.data);
         }
