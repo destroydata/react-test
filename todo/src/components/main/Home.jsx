@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { api } from "../../network/api";
 import Loading from "../tools/Loading";
 import Toast from "../tools/Toast";
+import HomeTableData from "./HomeTableData";
+import HomePageButtons from "./HomePageButtons";
+import HomeSizeSelect from "./HomeSizeSelect";
+import HomeTable from "./HomeTable";
 
 const Home = () => {
     const [all, setAll] = useState([]);
@@ -25,31 +29,25 @@ const Home = () => {
     }
     useEffect(() => {
         getAll();
-    }, [page])
+    }, [page, size])
     const changePage = (i) => {
         setPage(i)
+    }
+    const changeSize = (e) => {
+        setSize(e.target.value)
+        setPage(0)
     }
     return <div>
         {loading && <Loading />}
         {message && <Toast message={message} />}
-        {(loading || message) || <table>
-            <thead>
-                <th>content</th>
-                <th>name</th>
-                <th>check</th>
-            </thead>
-            <tbody>
-                {all.map(data => <tr key={data.id}>
-                    <td>{data.content}</td>
-                    <td>{data.user.name}</td>
-                    <td><input type="checkbox" readOnly checked={data.isCompleted} /></td>
-                </tr>)}
-            </tbody>
-        </table>}
+        {(loading || message) || <HomeTable all={all} />}
         <div style={{ display: "flex" }}>
-            {Array(totalPages).fill(0).map((el, i) =>
-                <button onClick={() => changePage(i)}>{i + 1}</button>
-            )}
+            <HomePageButtons
+                totalPages={totalPages}
+                changePage={changePage} />
+            <HomeSizeSelect
+                changeSize={changeSize}
+                size={size} />
         </div>
     </div>
 }
