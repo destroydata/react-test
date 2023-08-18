@@ -5,6 +5,7 @@ import Signup from '../components/auth/Signup';
 import Home from '../components/main/Home';
 import Template from '../components/template/Template';
 import { useState } from 'react';
+import Create from '../components/todo/Create';
 const MyRouters = () => {
     const [me, setMe] = useState({
         id: "",
@@ -18,6 +19,7 @@ const MyRouters = () => {
             <Route path='/signup' element={<Signup />} />
             <Route element={<Template me={me} setMe={setMe}></Template>}>
                 <Route path='/' element={<Home />}></Route>
+                <Route path='/todo/create' element={<Create />}></Route>
             </Route>
         </Routes>
     </BrowserRouter>

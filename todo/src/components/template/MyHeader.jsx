@@ -32,6 +32,7 @@ const MyHeader = ({ me, setMe }) => {
         <Link to="/"><h1>Home</h1></Link>
         <p>{me.name}</p>
         <p>잔고 : {me.money}</p>
+        <Link to='/todo/create'>+</Link>
         <button onClick={logout}>로그아웃</button>
     </header>
 }

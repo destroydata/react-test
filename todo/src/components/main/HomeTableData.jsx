@@ -1,11 +1,12 @@
 const HomeTableData = ({ data, row }) => {
     return <tr>
         {row.map(({ value, type }) =>
-            type === "checkbox" ? <td>
-                <input type="checkbox"
-                    readOnly checked={data.isCompleted} />
+            <td key={data.id + value}>
+                {type === "checkbox" ?
+                    <input type="checkbox"
+                        readOnly checked={data.isCompleted} />
+                    : data[value]}
             </td>
-                : <td>{data[value]}</td>
         )}
     </tr >
 }
