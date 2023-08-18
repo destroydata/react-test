@@ -7,22 +7,16 @@ import Template from '../components/template/Template';
 import { useState } from 'react';
 import Create from '../components/todo/Create';
 const MyRouters = () => {
-    const [me, setMe] = useState({
-        id: "",
-        money: 0,
-        name: "",
-        token: ""
-    })
     return <BrowserRouter>
         <Routes>
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />
             <Route element={<Template></Template>}>
                 <Route path='/' element={<Home />}></Route>
-                <Route path='/todo/create' element={<Create setMe={setMe} />}></Route>
+                <Route path='/todo/create' element={<Create />}></Route>
             </Route>
         </Routes>
-    </BrowserRouter>
+    </BrowserRouter >
 }
 
 export default MyRouters;

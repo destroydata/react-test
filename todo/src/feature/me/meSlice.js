@@ -21,10 +21,13 @@ export const meSlice = createSlice({
             state.money = payload.money
             state.name = payload.name
             state.token = payload.token
+        },
+        minusMoney: (state) => {
+            state.money = state.money - 100
         }
     }
 })
 
-export const { test, setMe } = meSlice.actions
+export const { test, setMe, minusMoney } = meSlice.actions
 
 export default meSlice.reducer

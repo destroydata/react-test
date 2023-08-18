@@ -2,12 +2,15 @@ import { useState } from "react";
 import { api } from "../../network/api";
 import Toast from "../tools/Toast";
 import { useNavigate } from "react-router";
+import { minusMoney } from "../../feature/me/meSlice";
+import { useDispatch } from "react-redux";
 
-const Create = ({ setMe }) => {
+const Create = () => {
     const [state, setState] = useState({
         content: "",
         isHidden: false
     })
+    const dispatch = useDispatch()
     const [message, setMessage] = useState("");
     const nav = useNavigate()
     const onChangeHandler = (e) => {
@@ -23,7 +26,7 @@ const Create = ({ setMe }) => {
 
         try {
             await api("/api/v1/todos", "POST", state)
-            setMe((prev) => ({ ...prev, money: prev.money - 100 }))
+            dispatch(minusMoney())
             nav("/")
         } catch (error) {
             setMessage(error.response.data)
