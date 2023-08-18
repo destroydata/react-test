@@ -1,6 +1,8 @@
+import { useSelector } from "react-redux"
 import HomeTableData from "./HomeTableData"
 
-const HomeTable = ({ all }) => {
+const HomeTable = () => {
+    const { all } = useSelector((state) => state.all)
     const row = [
         { name: "content", value: "content" },
         { name: "name", value: "userName" },

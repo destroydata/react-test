@@ -26,7 +26,7 @@ const Create = () => {
 
         try {
             await api("/api/v1/todos", "POST", state)
-            dispatch(minusMoney())
+            if (state.isHidden) dispatch(minusMoney())
             nav("/")
         } catch (error) {
             setMessage(error.response.data)
