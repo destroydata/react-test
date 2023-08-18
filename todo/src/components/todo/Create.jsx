@@ -3,7 +3,7 @@ import { api } from "../../network/api";
 import Toast from "../tools/Toast";
 import { useNavigate } from "react-router";
 
-const Create = () => {
+const Create = ({ setMe }) => {
     const [state, setState] = useState({
         content: "",
         isHidden: false
@@ -22,6 +22,7 @@ const Create = () => {
         setMessage("")
         try {
             await api("/api/v1/todos", "POST", state)
+            setMe((prev) => ({ ...prev, money: prev.money - 100 }))
             nav("/")
         } catch (error) {
             setMessage(error.response.data)

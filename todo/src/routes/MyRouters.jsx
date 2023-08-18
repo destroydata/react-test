@@ -19,7 +19,7 @@ const MyRouters = () => {
             <Route path='/signup' element={<Signup />} />
             <Route element={<Template me={me} setMe={setMe}></Template>}>
                 <Route path='/' element={<Home />}></Route>
-                <Route path='/todo/create' element={<Create />}></Route>
+                <Route path='/todo/create' element={<Create setMe={setMe} />}></Route>
             </Route>
         </Routes>
     </BrowserRouter>
