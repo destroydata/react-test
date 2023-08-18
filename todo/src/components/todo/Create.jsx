@@ -20,6 +20,7 @@ const Create = ({ setMe }) => {
     const onSubmitHandler = async (e) => {
         e.preventDefault();
         setMessage("")
+
         try {
             await api("/api/v1/todos", "POST", state)
             setMe((prev) => ({ ...prev, money: prev.money - 100 }))
