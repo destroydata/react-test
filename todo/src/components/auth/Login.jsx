@@ -2,7 +2,10 @@ import { useNavigate } from 'react-router';
 import logo from '../../logo.svg';
 import { useState } from 'react';
 import { apiNoToken } from '../../network/api';
-const Login = ({ setMe }) => {
+import { useDispatch } from 'react-redux';
+import { setMe } from '../../feature/me/meSlice';
+const Login = () => {
+    const dispatch = useDispatch()
     const [user, setUser] = useState({
         email: "",
         password: ""
@@ -19,7 +22,7 @@ const Login = ({ setMe }) => {
         try {
             const data = await apiNoToken('/api/v1/auth/login', 'POST', user)
             localStorage.setItem('token', data.token)
-            setMe(data)
+            dispatch(setMe(data))
             nav("/")
         } catch (error) {
             setMessage(error.response.data);

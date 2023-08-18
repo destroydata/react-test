@@ -1,9 +1,9 @@
 import { Outlet } from "react-router";
 import MyHeader from "./MyHeader";
 
-const Template = ({ me, setMe }) => {
+const Template = () => {
     return <div>
-        <MyHeader me={me} setMe={setMe}></MyHeader>
+        <MyHeader></MyHeader>
         <Outlet></Outlet>
     </div>
 }
