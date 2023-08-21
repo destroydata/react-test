@@ -6,47 +6,26 @@ import HomePageButtons from "./HomePageButtons";
 import HomeSizeSelect from "./HomeSizeSelect";
 import HomeTable from "./HomeTable";
 import { useDispatch, useSelector } from 'react-redux'
-import { setAll } from "../../feature/all/allSlice";
+import { getAllThunk, setAll } from "../../feature/all/allSlice";
 const Home = () => {
-    console.log("홈")
     const dispatch = useDispatch()
-    // const [all, setAll] = useState([]);
-    // const [totalPages, setTotalPages] = useState(0);
 
-    const [message, setMessage] = useState("");
-    const [loading, setLoading] = useState(false);
-
-    // const [page, setPage] = useState(0);
-    // const [size, setSize] = useState(5);
-    // const changePage = (i) => {
-    //     setPage(i)
-    // }
-    // const changeSize = (e) => {
-    //     setSize(e.target.value)
-    //     setPage(0)
-    // }
-    const { size, page } = useSelector(state => state.all)
+    const size = useSelector(state => state.all.size)
+    const page = useSelector(state => state.all.page)
+    const error = useSelector(state => state.all.error)
+    const status = useSelector(state => state.all.status)
     const getAll = async () => {
-        setMessage("")
-        setLoading(true)
-        try {
-            const data = await api(`/api/v1/todos` +
-                `?page=${page}&size=${size}`, "GET")
-            setLoading(false)
-            dispatch(setAll(data))
-            // setTotalPages(data.totalPages)
-        } catch (error) {
-            setMessage(error.response.data)
-        }
+        dispatch(getAllThunk())
     }
+
     useEffect(() => {
         getAll();
     }, [page, size])
 
     return <div>
-        {loading && <Loading />}
-        {message && <Toast message={message} />}
-        {(loading || message) || <HomeTable />}
+        {status === 'loading' && <Loading />}
+        {status === 'failed' && <Toast message={error} />}
+        {status === 'succeeded' && <HomeTable />}
         <div style={{ display: "flex" }}>
             <HomePageButtons />
             <HomeSizeSelect />
